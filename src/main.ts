@@ -83,7 +83,11 @@ export default class ICSPlugin extends Plugin {
         var mdArray: string [] = [];
 
         events.forEach((e) => {
-          mdArray.push(`- [ ] ${e.time} ${e.icsName} ${e.summary} ${e.location}`.trim())
+          let formattedString = `- [ ]  ${e.time} ${e.icsName} ${e.summary}`;
+	  if (e.location !== 'undefined') {
+	    formattedString += ` ${e.location}`;
+	  }
+	  mdArray.push(formattedString.trim());
         });
 				activeView.editor.replaceRange(mdArray.sort().join("\n"), activeView.editor.getCursor());
 			}
